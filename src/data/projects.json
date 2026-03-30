@@ -1,0 +1,35 @@
+[
+    {
+        "title": "Hospital Management System project",
+        "imageSrc": "src/assets/project/hms.webp",
+        "description": "",
+        "skills": ["React", "Vite", "Redux" ],
+        "demo": " https://gargisingh9310-ops.github.io/Hospital-Management-System-/",
+        "source": "https://github.com/gargisingh9310-ops/Hospital-Management-System-"
+    },
+    {
+        "title":"E-com",
+        "imageSrc":"src/assets/project/e-com.png",
+        "description":"",
+        "skills":["React","Vite", "Express", "MongoDB"],
+        "demo":"http://www.example.com",
+        "source":"http://www.github.com"
+    },
+    {
+        "title":"QR Generator",
+        "imageSrc":"src/assets/project/QR-gene.png",
+        "description":"",
+        "skills":["JavaScript"],
+        "demo":"http://www.example.com",
+        "source":"http://www.github.com"
+    },
+    {
+        "title":"Weather Checker",
+        "imageSrc":"src/assets/project/weather.webp",
+        "description":"",
+        "skills":["JavaScript","API"],
+        "demo":"http://www.example.com",
+        "source":"http://www.github.com"
+    }
+    
+]

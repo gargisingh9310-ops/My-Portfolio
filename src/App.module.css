@@ -1,0 +1,37 @@
+/* ===== Main App Wrapper ===== */
+.App {
+  width: 100%;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+  background: linear-gradient(135deg, #F5F3FF, #EDE9FE);
+}
+
+/* ===== Section Common Style ===== */
+.App section {
+  padding: 100px 8%;
+  position: relative;
+}
+
+/* ===== Alternating Soft Background Effect ===== */
+.App section:nth-child(even) {
+  background: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(8px);
+}
+
+/* ===== Section Divider Line ===== */
+.App section:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 10%;
+  width: 80%;
+  height: 1px;
+  background: linear-gradient(to right, transparent, #E9D5FF, transparent);
+}
+
+/* ===== Responsive Spacing ===== */
+@media (max-width: 768px) {
+  .App section {
+    padding: 80px 20px;
+  }
+}

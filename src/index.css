@@ -1,0 +1,82 @@
+/* ===== Theme Variables ===== */
+:root {
+  --bg: #F5F3FF;
+  --bg-soft: #EDE9FE;
+  --primary: #7C3AED;
+  --primary-dark: #6D28D9;
+  --text-dark: #1E1B4B;
+  --text-light: #6B7280;
+  --white: #ffffff;
+}
+
+
+/* ===== Reset ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* ===== Body ===== */
+body {
+  font-family: 'Outfit', sans-serif;
+  background: linear-gradient(135deg, var(--bg), var(--bg-soft));
+  color: var(--text-dark);
+  min-height: 100vh;
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+
+}
+
+/* ===== Headings ===== */
+h1, h2, h3, h4 {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 600;
+}
+
+/* ===== Paragraph ===== */
+p {
+  font-family: 'Roboto', sans-serif;
+  color: var(--text-light);
+  line-height: 1.6;
+}
+
+/* ===== Links ===== */
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* ===== Buttons Global ===== */
+button {
+  font-family: inherit;
+  border: none;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+/* ===== Container Utility ===== */
+.container {
+  width: 90%;
+  max-width: 1200px;
+  margin: auto;
+}
+
+/* ===== Section Spacing ===== */
+section {
+  padding: 100px 0;
+}
+
+/* ===== Scrollbar Styling ===== */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--primary);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}

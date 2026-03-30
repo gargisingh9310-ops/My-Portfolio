@@ -1,0 +1,141 @@
+/* ===== Container ===== */
+.container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 100px 8%;
+  min-height: 90vh;
+  overflow: hidden;
+}
+
+/* ===== Content Section ===== */
+.content {
+  max-width: 550px;
+  z-index: 2;
+animation: fadeSlide 1.2s ease forwards;
+}
+
+/* ===== Title ===== */
+.title {
+  font-size: 3rem;
+  font-weight: 700;
+  color: #1E1B4B;
+  margin-bottom: 20px;
+}
+
+.name {
+  color: #7C3AED;
+}
+
+/* ===== Description ===== */
+.description {
+  font-size: 1.1rem;
+  line-height: 1.7;
+  color: #6B7280;
+  margin-bottom: 30px;
+}
+
+.highlight {
+  color: #7C3AED;
+  font-weight: 600;
+}
+
+/* ===== Contact Button ===== */
+.contactBtn {
+  display: inline-block;
+  padding: 12px 28px;
+  border-radius: 30px;
+  background: #7C3AED;
+  color: white;
+  font-weight: 500;
+  transition: 0.3s ease;
+}
+
+.contactBtn:hover {
+  background: #6D28D9;
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(124, 58, 237, 0.3);
+}
+
+/* ===== Image Styling (213x308 Portrait Fix) ===== */
+.introimg {
+  width: 260px;              /* thoda enlarge but maintain ratio */
+  height: auto;              /* ratio safe */
+  border-radius: 20px;
+  object-fit: cover;
+  z-index: 2;
+  transition: all 0.4s ease;
+  box-shadow: 0 15px 35px rgba(124, 58, 237, 0.15);
+   animation: float 4s ease-in-out infinite;
+}
+
+/* ===== Hover Effect ===== */
+.introimg:hover {
+  transform: translateY(-10px) scale(1.03);
+  box-shadow: 0 20px 50px rgba(124, 58, 237, 0.35);
+}
+
+/* ===== Blur Effects ===== */
+.topBlur {
+  position: absolute;
+  width: 350px;
+  height: 350px;
+  background: #C4B5FD;
+  filter: blur(160px);
+  top: -100px;
+  right: -100px;
+  z-index: 1;
+}
+
+.bottomBlur {
+  position: absolute;
+  width: 350px;
+  height: 350px;
+  background: #E9D5FF;
+  filter: blur(160px);
+  bottom: -100px;
+  left: -100px;
+  z-index: 1;
+}
+/* FLOATING IMAGE ANIMATION */
+
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-15px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+/* PAGE LOAD ANIMATION */
+
+@keyframes fadeSlide {
+  from {
+    opacity: 0;
+    transform: translateX(-40px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 992px) {
+  .container {
+    flex-direction: column;
+    text-align: center;
+    padding: 80px 20px;
+  }
+
+  .introimg {
+    margin-top: 40px;
+    width: 220px;
+  }
+}

@@ -1,0 +1,113 @@
+/* SECTION */
+.container {
+  padding: 100px 8%;
+  background: #f9fafb;
+   background: linear-gradient(135deg, #F5F3FF, #EDE9FE)
+}
+
+/* TITLE */
+.title {
+  text-align: center;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #1E1B4B;
+  margin-bottom: 60px;
+}
+
+/* CONTENT WRAPPER */
+.content {
+  display: flex;
+  justify-content: center;
+}
+
+/* LIST */
+.aboutItems {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 30px;
+  padding: 0;
+  width: 100%;
+  max-width: 1100px;
+}
+
+/* CARD */
+.aboutItem {
+  display: flex;
+  gap: 20px;
+  background: white;
+  padding: 25px;
+  border-radius: 16px;
+  align-items: flex-start;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.06);
+  transition: all 0.3s ease;
+}
+
+.aboutItem:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 15px 35px rgba(124, 58, 237, 0.15);
+}
+
+/* ICON */
+.aboutItem img {
+  width: 45px;
+  height: 45px;
+}
+
+/* TEXT */
+.aboutItemText h3 {
+  font-size: 1.2rem;
+  color: #1E1B4B;
+  margin-bottom: 8px;
+}
+
+.aboutItemText p {
+  font-size: 0.9rem;
+  color: #555;
+  line-height: 1.5;
+  margin-bottom: 12px;
+}
+
+/* TAGS */
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  list-style: none;
+  padding: 0;
+}
+
+/* SKILL TAG */
+.tags li {
+  background: #ede9fe;
+  color: #7C3AED;
+  font-size: 0.75rem;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-weight: 500;
+  transition: 0.3s ease;
+}
+
+.tags li:hover {
+  background: #7C3AED;
+  color: white;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+
+  .title {
+    font-size: 2rem;
+  }
+
+  .aboutItem {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .aboutItem img {
+    width: 40px;
+    height: 40px;
+  }
+
+}

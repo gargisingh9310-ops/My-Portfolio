@@ -1,0 +1,66 @@
+.container {
+  padding: 100px 8%;
+  position: relative;
+   background: linear-gradient(135deg, #F5F3FF, #EDE9FE)
+}
+
+.title {
+  text-align: center;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #1E1B4B;
+  margin-bottom: 60px;
+}
+
+/* ===== Grid Layout ===== */
+.skillGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 25px;
+}
+
+/* ===== Skill Card ===== */
+.skillCard {
+  background: white;
+  border-radius: 18px;
+  padding: 25px 15px;
+  text-align: center;
+  transition: all 0.4s ease;
+  box-shadow: 0 10px 30px rgba(124, 58, 237, 0.08);
+  cursor: pointer;
+}
+
+.skillCard:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 45px rgba(124, 58, 237, 0.25);
+}
+
+/* ===== Icon Style ===== */
+.icon {
+  font-size: 2rem;
+  color: #7C3AED;
+  margin-bottom: 12px;
+  transition: 0.3s ease;
+}
+
+.skillCard:hover .icon {
+  transform: scale(1.2);
+}
+
+/* ===== Skill Name ===== */
+.skillCard p {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #1E1B4B;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 768px) {
+  .container {
+    padding: 80px 20px;
+  }
+
+  .title {
+    font-size: 2rem;
+  }
+}

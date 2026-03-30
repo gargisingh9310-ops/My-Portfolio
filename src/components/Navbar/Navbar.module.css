@@ -1,0 +1,100 @@
+/* ===== Navbar Container ===== */
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  width: 100%;
+  padding: 18px 8%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  backdrop-filter: blur(12px);
+  background: rgba(255, 255, 255, 0.6);
+}
+
+/* ===== Logo / Title ===== */
+.title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #7C3AED;
+  letter-spacing: 1px;
+}
+
+/* ===== Menu Wrapper ===== */
+.menu {
+  position: relative;
+}
+
+/* ===== Desktop Menu ===== */
+.menuItems {
+  display: flex;
+  gap: 30px;
+  list-style: none;
+  font-weight: 500;
+}
+
+/* ===== Links ===== */
+.menuItems li a {
+  text-decoration: none;
+  color: #1E1B4B;
+  transition: 0.3s ease;
+  position: relative;
+}
+
+/* Hover Underline Animation */
+.menuItems li a::after {
+  content: "";
+  position: absolute;
+  width: 0%;
+  height: 2px;
+  bottom: -5px;
+  left: 0;
+  background-color: #7C3AED;
+  transition: 0.3s ease;
+}
+
+.menuItems li a:hover::after {
+  width: 100%;
+}
+
+.menuItems li a:hover {
+  color: #7C3AED;
+}
+
+/* ===== Menu Button (Hidden Desktop) ===== */
+.menuBtn {
+  display: none;
+  width: 28px;
+  cursor: pointer;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 900px) {
+
+  .menuBtn {
+    display: block;
+  }
+
+  .menuItems {
+    position: absolute;
+    top: 60px;
+    right: 0;
+    flex-direction: column;
+    gap: 20px;
+    padding: 30px;
+    width: 220px;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 15px 40px rgba(124, 58, 237, 0.15);
+    transform: translateY(-20px);
+    opacity: 0;
+    pointer-events: none;
+    transition: 0.3s ease;
+  }
+
+  .menuOpen {
+    transform: translateY(0);
+    opacity: 1;
+    pointer-events: auto;
+  }
+}
