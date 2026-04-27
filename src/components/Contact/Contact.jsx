@@ -14,26 +14,47 @@ export const Contact = () => {
   });
 
   const [showPopup, setShowPopup] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setShowPopup(true);
+    setLoading(true);
 
-    setTimeout(() => {
-      setShowPopup(false);
-    }, 3000);
+    try {
+      const res = await fetch("http://localhost:5000/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
 
-    setFormData({
-      name: "",
-      phone: "",
-      email: "",
-      message: "",
-    });
+      const data = await res.json();
+
+      if (data.success) {
+        setShowPopup(true);
+
+        setTimeout(() => {
+          setShowPopup(false);
+        }, 3000);
+
+        setFormData({
+          name: "",
+          phone: "",
+          email: "",
+          message: "",
+        });
+      }
+    } catch (error) {
+      console.log(error);
+    }
+
+    setLoading(false);
   };
 
   return (
@@ -44,16 +65,13 @@ export const Contact = () => {
         <div className={styles.left}>
           <h2>Contact Me</h2>
           <p>Let's connect and build something meaningful together.</p>
+
           <img src={profileImg} alt="Profile" className={styles.profileImg} />
 
           <ul className={styles.links}>
             <li>
               <img src={mailIcon} alt="mail" />
-              <a
-                href="mailto:gargi.singh.9310@gmail.com"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
+              <a href="mailto:gargi.singh.9310@gmail.com">
                 gargi.singh.9310@gmail.com
               </a>
             </li>
@@ -61,7 +79,7 @@ export const Contact = () => {
             <li>
               <img src={linkIcon} alt="linkedin" />
               <a
-                href="https://www.linkedin.com/in/gargi-undefined-03286a3a7/"
+                href="https://www.linkedin.com/"
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -72,7 +90,7 @@ export const Contact = () => {
             <li>
               <img src={gitIcon} alt="github" />
               <a
-                href="https://github.com/gargisingh9310-ops"
+                href="https://github.com/"
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -119,7 +137,9 @@ export const Contact = () => {
             required
           />
 
-          <button type="submit">Send Message</button>
+          <button type="submit" disabled={loading}>
+            {loading ? "Sending..." : "Send Message"}
+          </button>
         </form>
       </div>
 

@@ -1,35 +1,45 @@
 [
-    {
-        "title": "Hospital Management System project",
-        "imageSrc": "src/assets/project/hms.webp",
-        "description": "",
-        "skills": ["React", "Vite", "Redux" ],
-        "demo": " https://gargisingh9310-ops.github.io/Hospital-Management-System-/",
-        "source": "https://github.com/gargisingh9310-ops/Hospital-Management-System-"
-    },
-    {
+     {
         "title":"E-com",
         "imageSrc":"src/assets/project/e-com.png",
         "description":"",
         "skills":["React","Vite", "Express", "MongoDB"],
         "demo":"http://www.example.com",
-        "source":"http://www.github.com"
+        "source":"https://github.com/gargisingh9310-ops/E-Commerce",
+        "comingSoon": true
     },
     {
-        "title":"QR Generator",
-        "imageSrc":"src/assets/project/QR-gene.png",
+        "title":"Half Fried",
+        "imageSrc":"src/assets/project/Half-Fried.png",
         "description":"",
-        "skills":["JavaScript"],
+        "skills":["React","Vite", "Express", "MongoDB"],
         "demo":"http://www.example.com",
-        "source":"http://www.github.com"
+        "source":"https://github.com/gargisingh9310-ops/Half-Fried",
+        "comingSoon": true
+    },
+    {
+        "title": "Social Hub",
+        "imageSrc": "src/assets/project/Social-Hub.webp",
+        "description": "",
+        "skills": [ "React","Vite", "Express", "MongoDB"],
+        "demo": " https://social-hub-sqid.onrender.com",
+        "source": "https://github.com/gargisingh9310-ops/Socialhub"
+    },
+    {
+        "title": "Hospital Management System project",
+        "imageSrc": "src/assets/project/hms.webp",
+        "description": "",
+        "skills": ["React", "Vite", "Redux" ],
+        "demo": " https://hospital-management-system-x8za.onrender.com",
+        "source": "https://github.com/gargisingh9310-ops/Hospital-Management-System-"
     },
     {
         "title":"Weather Checker",
         "imageSrc":"src/assets/project/weather.webp",
         "description":"",
         "skills":["JavaScript","API"],
-        "demo":"http://www.example.com",
-        "source":"http://www.github.com"
+        "demo":"https://weather-page-ks3f.onrender.com",
+        "source":"https://github.com/gargisingh9310-ops/Weather-Page"
     }
     
 ]
