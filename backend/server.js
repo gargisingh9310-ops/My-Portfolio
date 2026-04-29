@@ -6,16 +6,14 @@ import nodemailer from "nodemailer";
 dotenv.config();
 
 const app = express();
-
-// ✅ CORS (abhi sab allow, baad me restrict kar sakti ho)
 app.use(cors());
 app.use(express.json());
 
-// ✅ Route
 app.post("/contact", async (req, res) => {
   try {
     const { name, phone, email, message } = req.body;
 
+    // transporter setup
     const transporter = nodemailer.createTransport({
       service: "gmail",
       auth: {
@@ -24,8 +22,9 @@ app.post("/contact", async (req, res) => {
       },
     });
 
+    // mail options
     const mailOptions = {
-      from: process.env.EMAIL, // ⚠️ change (important)
+      from: email,
       to: process.env.EMAIL,
       subject: `New Contact Form Message from ${name}`,
       html: `
@@ -46,9 +45,6 @@ app.post("/contact", async (req, res) => {
   }
 });
 
-// ✅ IMPORTANT: Render ke liye dynamic port
-const PORT = process.env.PORT || 5000;
-
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+app.listen(5000, () => {
+  console.log("Server running on port 5000");
 });

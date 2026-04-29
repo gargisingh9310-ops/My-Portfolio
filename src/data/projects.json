@@ -22,7 +22,7 @@
         "imageSrc": "src/assets/project/Social-Hub.webp",
         "description": "",
         "skills": [ "React","Vite", "Express", "MongoDB"],
-        "demo": " https://social-hub-sqid.onrender.com",
+        "demo": " https://socialhub-backend-ug9j.onrender.com",
         "source": "https://github.com/gargisingh9310-ops/Socialhub"
     },
     {
