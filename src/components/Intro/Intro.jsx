@@ -1,5 +1,5 @@
 import React from 'react'
-import styles from '../Intro/intro.module.css'
+import styles from '../Intro/Intro.module.css'
 import introicon from '../../assets/intro/info.png'
 
 export const Intro = () => {
