@@ -6,14 +6,16 @@ import nodemailer from "nodemailer";
 dotenv.config();
 
 const app = express();
+
+// CORS (frontend allow)
 app.use(cors());
 app.use(express.json());
 
+// Contact API
 app.post("/contact", async (req, res) => {
   try {
     const { name, phone, email, message } = req.body;
 
-    // transporter setup
     const transporter = nodemailer.createTransport({
       service: "gmail",
       auth: {
@@ -22,7 +24,6 @@ app.post("/contact", async (req, res) => {
       },
     });
 
-    // mail options
     const mailOptions = {
       from: email,
       to: process.env.EMAIL,
@@ -38,13 +39,17 @@ app.post("/contact", async (req, res) => {
 
     await transporter.sendMail(mailOptions);
 
-    res.status(200).json({ success: true, message: "Email sent" });
+    res.status(200).json({ success: true, message: "Email sent successfully" });
+
   } catch (error) {
     console.log(error);
     res.status(500).json({ success: false, message: "Error sending email" });
   }
 });
 
-app.listen(5000, () => {
-  console.log("Server running on port 5000");
+// IMPORTANT: Render port fix
+const PORT = process.env.PORT || 5000;
+
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
 });
