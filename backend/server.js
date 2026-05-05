@@ -7,15 +7,21 @@ dotenv.config();
 
 const app = express();
 
-// CORS (frontend allow)
+// Middleware
 app.use(cors());
 app.use(express.json());
+
+// Test Route
+app.get("/", (req, res) => {
+  res.send("Server is running...");
+});
 
 // Contact API
 app.post("/contact", async (req, res) => {
   try {
     const { name, phone, email, message } = req.body;
 
+    // Gmail Transport
     const transporter = nodemailer.createTransport({
       service: "gmail",
       auth: {
@@ -24,32 +30,44 @@ app.post("/contact", async (req, res) => {
       },
     });
 
+    // Mail Options
     const mailOptions = {
-      from: email,
+      from: process.env.EMAIL,
       to: process.env.EMAIL,
-      subject: `New Contact Form Message from ${name}`,
+      replyTo: email,
+      subject: `New Contact Message from ${name}`,
       html: `
-        <h3>New Message</h3>
-        <p><b>Name:</b> ${name}</p>
-        <p><b>Phone:</b> ${phone}</p>
-        <p><b>Email:</b> ${email}</p>
-        <p><b>Message:</b> ${message}</p>
+        <h2>New Contact Form Message</h2>
+
+        <p><strong>Name:</strong> ${name}</p>
+        <p><strong>Phone:</strong> ${phone}</p>
+        <p><strong>Email:</strong> ${email}</p>
+        <p><strong>Message:</strong></p>
+        <p>${message}</p>
       `,
     };
 
+    // Send Mail
     await transporter.sendMail(mailOptions);
 
-    res.status(200).json({ success: true, message: "Email sent successfully" });
+    res.status(200).json({
+      success: true,
+      message: "Email sent successfully",
+    });
 
   } catch (error) {
     console.log(error);
-    res.status(500).json({ success: false, message: "Error sending email" });
+
+    res.status(500).json({
+      success: false,
+      message: "Error sending email",
+    });
   }
 });
 
-// IMPORTANT: Render port fix
-const PORT = process.env.PORT || 5000;
+// Localhost Port
+const PORT = 5000;
 
 app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+  console.log(`Server running on http://localhost:${PORT}`);
 });
