@@ -9,7 +9,8 @@ const app = express();
 
 // Middleware
 app.use(cors({
-  origin: "https://my-portfolio-9qig.onrender.com"
+  origin: "https://my-portfolio-9qig.onrender.com",
+  methods: ["GET", "POST"],
 }));
 
 app.use(express.json());

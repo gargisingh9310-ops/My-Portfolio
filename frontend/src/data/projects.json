@@ -1,7 +1,7 @@
 [
      {
         "title":"E-com",
-        "imageSrc":"src/assets/project/e-com.png",
+        "imageSrc":"frontend/src/assets/project/e-com.png",
         "description":"",
         "skills":["React","Vite", "Express", "MongoDB"],
         "demo":"http://www.example.com",
@@ -10,7 +10,7 @@
     },
     {
         "title":"Half Fried",
-        "imageSrc":"src/assets/project/Half-Fried.png",
+        "imageSrc":"frontend/src/assets/project/Half-Fried.png",
         "description":"",
         "skills":["React","Vite", "Express", "MongoDB"],
         "demo":"http://www.example.com",
@@ -19,7 +19,7 @@
     },
     {
         "title": "Social Hub",
-        "imageSrc": "src/assets/project/Social-Hub.webp",
+        "imageSrc": "frontend/src/assets/project/Social-Hub.webp",
         "description": "",
         "skills": [ "React","Vite", "Express", "MongoDB"],
         "demo": " https://socialhub-backend-ug9j.onrender.com",
@@ -27,7 +27,7 @@
     },
     {
         "title": "Hospital Management System project",
-        "imageSrc": "src/assets/project/hms.webp",
+        "imageSrc": "frontend/src/assets/project/hms.webp",
         "description": "",
         "skills": ["React", "Vite", "Redux" ],
         "demo": " https://hospital-management-system-x8za.onrender.com",
@@ -35,7 +35,7 @@
     },
     {
         "title":"Weather Checker",
-        "imageSrc":"src/assets/project/weather.webp",
+        "imageSrc":"frontend/src/assets/project/weather.webp",
         "description":"",
         "skills":["JavaScript","API"],
         "demo":"https://weather-page-ks3f.onrender.com",
