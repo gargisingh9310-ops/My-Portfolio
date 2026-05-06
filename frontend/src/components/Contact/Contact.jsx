@@ -105,7 +105,7 @@ export const Contact = () => {
               <img src={linkIcon} alt="linkedin" />
 
               <a
-                href="https://www.linkedin.com/"
+                href="https://www.linkedin.com/in/gargi-undefined-130b98400?utm_source=share_via&utm_content=profile&utm_medium=member_android"
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -117,7 +117,7 @@ export const Contact = () => {
               <img src={gitIcon} alt="github" />
 
               <a
-                href="https://github.com/"
+                href="https://github.com/gargisingh9310-ops"
                 target="_blank"
                 rel="noopener noreferrer"
               >

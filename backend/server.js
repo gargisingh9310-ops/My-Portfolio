@@ -26,7 +26,15 @@ app.post("/contact", async (req, res) => {
   try {
     const { name, phone, email, message } = req.body;
 
-    // SMTP Transport (FIXED VERSION)
+    // Validation (IMPORTANT)
+    if (!name || !email || !message) {
+      return res.status(400).json({
+        success: false,
+        message: "Missing required fields"
+      });
+    }
+
+    // Nodemailer Transport (STABLE CONFIG)
     const transporter = nodemailer.createTransport({
       host: "smtp.gmail.com",
       port: 465,
@@ -37,6 +45,7 @@ app.post("/contact", async (req, res) => {
       },
     });
 
+    // Mail Options
     const mailOptions = {
       from: process.env.EMAIL,
       to: process.env.EMAIL,
@@ -52,26 +61,28 @@ app.post("/contact", async (req, res) => {
       `,
     };
 
+    // Send Email
     await transporter.sendMail(mailOptions);
 
     res.status(200).json({
       success: true,
-      message: "Email sent successfully",
+      message: "Email sent successfully"
     });
 
   } catch (error) {
-    console.log("EMAIL ERROR:", error);
+    console.log("❌ EMAIL ERROR:", error);
 
     res.status(500).json({
       success: false,
       message: "Error sending email",
+      error: error.message
     });
   }
 });
 
-// Port Fix
+// PORT (Render safe)
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+  console.log(`🚀 Server running on port ${PORT}`);
 });
