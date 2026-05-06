@@ -36,7 +36,7 @@ export const Contact = () => {
     try {
       // Render Backend API
       const res = await fetch(
-        "http://localhost:5000/contact",
+        "https://my-portfolio-backend-466p.onrender.com/contact",
         {
           method: "POST",
           headers: {
