@@ -8,7 +8,10 @@ dotenv.config();
 const app = express();
 
 // Middleware
-app.use(cors());
+app.use(cors({
+  origin: "https://my-portfolio-9qig.onrender.com"
+}));
+
 app.use(express.json());
 
 // Test Route
