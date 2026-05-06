@@ -11,6 +11,7 @@ const app = express();
 app.use(cors({
   origin: "https://my-portfolio-9qig.onrender.com",
   methods: ["GET", "POST"],
+  credentials: true
 }));
 
 app.use(express.json());
@@ -25,16 +26,17 @@ app.post("/contact", async (req, res) => {
   try {
     const { name, phone, email, message } = req.body;
 
-    // Gmail Transport
+    // SMTP Transport (FIXED VERSION)
     const transporter = nodemailer.createTransport({
-      service: "gmail",
+      host: "smtp.gmail.com",
+      port: 465,
+      secure: true,
       auth: {
         user: process.env.EMAIL,
         pass: process.env.EMAIL_PASS,
       },
     });
 
-    // Mail Options
     const mailOptions = {
       from: process.env.EMAIL,
       to: process.env.EMAIL,
@@ -42,7 +44,6 @@ app.post("/contact", async (req, res) => {
       subject: `New Contact Message from ${name}`,
       html: `
         <h2>New Contact Form Message</h2>
-
         <p><strong>Name:</strong> ${name}</p>
         <p><strong>Phone:</strong> ${phone}</p>
         <p><strong>Email:</strong> ${email}</p>
@@ -51,7 +52,6 @@ app.post("/contact", async (req, res) => {
       `,
     };
 
-    // Send Mail
     await transporter.sendMail(mailOptions);
 
     res.status(200).json({
@@ -60,7 +60,7 @@ app.post("/contact", async (req, res) => {
     });
 
   } catch (error) {
-    console.log(error);
+    console.log("EMAIL ERROR:", error);
 
     res.status(500).json({
       success: false,
@@ -69,9 +69,9 @@ app.post("/contact", async (req, res) => {
   }
 });
 
-// Render/Vercel Port Fix
+// Port Fix
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`); 
+  console.log(`Server running on port ${PORT}`);
 });
