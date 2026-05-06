@@ -9,7 +9,10 @@ const app = express();
 
 // Middleware
 app.use(cors({
-  origin: "https://my-portfolio-9qig.onrender.com",
+  origin: [
+    "http://localhost:5173",
+    "https://my-portfolio-9qig.onrender.com"
+  ],
   methods: ["GET", "POST"],
   credentials: true
 }));
@@ -26,7 +29,7 @@ app.post("/contact", async (req, res) => {
   try {
     const { name, phone, email, message } = req.body;
 
-    // Validation (IMPORTANT)
+    // Validation
     if (!name || !email || !message) {
       return res.status(400).json({
         success: false,
@@ -34,18 +37,18 @@ app.post("/contact", async (req, res) => {
       });
     }
 
-    // Nodemailer Transport (STABLE CONFIG)
+    // SMTP TRANSPORT (FIXED FOR RENDER)
     const transporter = nodemailer.createTransport({
       host: "smtp.gmail.com",
-      port: 465,
-      secure: true,
+      port: 587,
+      secure: false,
       auth: {
         user: process.env.EMAIL,
         pass: process.env.EMAIL_PASS,
       },
     });
 
-    // Mail Options
+    // Mail Content
     const mailOptions = {
       from: process.env.EMAIL,
       to: process.env.EMAIL,
@@ -61,10 +64,9 @@ app.post("/contact", async (req, res) => {
       `,
     };
 
-    // Send Email
     await transporter.sendMail(mailOptions);
 
-    res.status(200).json({
+    return res.status(200).json({
       success: true,
       message: "Email sent successfully"
     });
@@ -72,7 +74,7 @@ app.post("/contact", async (req, res) => {
   } catch (error) {
     console.log("❌ EMAIL ERROR:", error);
 
-    res.status(500).json({
+    return res.status(500).json({
       success: false,
       message: "Error sending email",
       error: error.message
@@ -80,7 +82,7 @@ app.post("/contact", async (req, res) => {
   }
 });
 
-// PORT (Render safe)
+// PORT
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
