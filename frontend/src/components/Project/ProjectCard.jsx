@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import styles from "./ProjectCard..module.css";
+import styles from "./ProjectCard.module.css";
 
 export const ProjectCard = ({
   project: {
@@ -16,38 +16,49 @@ export const ProjectCard = ({
 
   const handleDemoClick = (e) => {
     if (comingSoon) {
-      e.preventDefault(); // link open na ho
+      e.preventDefault();
       setShowPopup(true);
     }
   };
 
   return (
     <div className={styles.card}>
+      
+      {/* IMAGE */}
       <div className={styles.imageWrapper}>
         <img
           src={imageSrc}
-          alt={`Image of ${title}`}
+          alt={title}
           className={styles.image}
         />
 
-        {/* optional badge */}
         {comingSoon && (
-          <span className={styles.badge}>Coming Soon</span>
+          <span className={styles.badge}>
+            Coming Soon
+          </span>
         )}
       </div>
 
-      <h3 className={styles.projectTitle}>{title}</h3>
+      {/* TITLE */}
+      <h3 className={styles.projectTitle}>
+        {title}
+      </h3>
 
-      <p className={styles.description}>{description}</p>
+      {/* DESCRIPTION */}
+      <p className={styles.description}>
+        {description}
+      </p>
 
+      {/* SKILLS */}
       <ul className={styles.skills}>
-        {skills.map((skill, id) => (
-          <li key={id} className={styles.skill}>
+        {skills.map((skill, index) => (
+          <li key={index} className={styles.skill}>
             {skill}
           </li>
         ))}
       </ul>
 
+      {/* LINKS */}
       <div className={styles.links}>
         {demo && (
           <a
@@ -78,13 +89,14 @@ export const ProjectCard = ({
         <div className={styles.popupOverlay}>
           <div className={styles.popup}>
             <h2>🚧 Coming Soon</h2>
-            <p>This demo is under development</p>
+            <p>This project is under development</p>
             <button onClick={() => setShowPopup(false)}>
               Close
             </button>
           </div>
         </div>
       )}
+
     </div>
   );
 };
