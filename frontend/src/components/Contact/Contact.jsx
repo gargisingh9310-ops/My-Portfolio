@@ -34,14 +34,17 @@ export const Contact = () => {
     setLoading(true);
 
     try {
-      // Vercel Backend Route
-      const res = await fetch("/contact", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
+      // Render Backend API
+      const res = await fetch(
+        "http://localhost:5000/contact",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        }
+      );
 
       const data = await res.json();
 
@@ -58,9 +61,13 @@ export const Contact = () => {
           email: "",
           message: "",
         });
+      } else {
+        alert("Failed to send message");
       }
+
     } catch (error) {
       console.log(error);
+      alert("Something went wrong");
     }
 
     setLoading(false);
