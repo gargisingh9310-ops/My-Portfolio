@@ -43,8 +43,7 @@ app.post("/send-email", async (req, res) => {
       });
     }
 
-    // Email Transporter
-    const transporter = nodemailer.createTransport({
+   const transporter = nodemailer.createTransport({
   host: "smtp.gmail.com",
   port: 465,
   secure: true,
@@ -52,7 +51,10 @@ app.post("/send-email", async (req, res) => {
     user: process.env.EMAIL,
     pass: process.env.EMAIL_PASS,
   },
+  family: 4, // FORCE IPv4 (IMPORTANT)
+  connectionTimeout: 15000,
 });
+
     // Mail Options
     const mailOptions = {
       from: process.env.EMAIL,
