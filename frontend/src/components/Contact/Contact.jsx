@@ -17,7 +17,7 @@ export const Contact = () => {
   const [showPopup, setShowPopup] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  // Handle Input Change
+  // HANDLE INPUT CHANGE
   const handleChange = (e) => {
     const { name, value } = e.target;
 
@@ -27,16 +27,15 @@ export const Contact = () => {
     }));
   };
 
-  // Handle Form Submit
+  // HANDLE FORM SUBMIT
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     setLoading(true);
 
     try {
-      // Render Backend API
       const res = await fetch(
-        "https://my-portfolio-backend-466p.onrender.com/contact",
+        "https://my-portfolio-backend-466p.onrender.com/send-email",
         {
           method: "POST",
           headers: {
@@ -49,12 +48,14 @@ export const Contact = () => {
       const data = await res.json();
 
       if (data.success) {
+        // SHOW SUCCESS POPUP
         setShowPopup(true);
 
         setTimeout(() => {
           setShowPopup(false);
         }, 3000);
 
+        // CLEAR FORM
         setFormData({
           name: "",
           phone: "",
@@ -62,15 +63,15 @@ export const Contact = () => {
           message: "",
         });
       } else {
-        alert("Failed to send message");
+        alert(data.message || "Failed to send message");
       }
 
     } catch (error) {
-      console.log(error);
+      console.log("ERROR:", error);
       alert("Something went wrong");
+    } finally {
+      setLoading(false);
     }
-
-    setLoading(false);
   };
 
   return (
@@ -105,7 +106,7 @@ export const Contact = () => {
               <img src={linkIcon} alt="linkedin" />
 
               <a
-                href="https://www.linkedin.com/in/gargi-undefined-130b98400?utm_source=share_via&utm_content=profile&utm_medium=member_android"
+                href="https://www.linkedin.com/in/gargi-undefined-130b98400"
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -173,7 +174,7 @@ export const Contact = () => {
         </form>
       </div>
 
-      {/* Success Popup */}
+      {/* SUCCESS POPUP */}
       {showPopup && (
         <div className={styles.popup}>
           ✅ Message sent successfully!
