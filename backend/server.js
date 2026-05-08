@@ -12,7 +12,7 @@ app.use(
   cors({
     origin: [
       "https://my-portfolio-ni6u.onrender.com",
-      "https://my-portfolio-9qig.onrender.com"
+      "https://my-portfolio-9qig.onrender.com",
     ],
     methods: ["GET", "POST"],
   })
@@ -31,9 +31,9 @@ app.post("/send-email", async (req, res) => {
   try {
     const { name, phone, email, message } = req.body;
 
-    // 🔍 DEBUG (Render logs me check karne ke liye)
-    console.log("EMAIL ENV:", process.env.EMAIL);
-    console.log("PASS ENV:", process.env.EMAIL_PASS);
+    // DEBUG LOGS (Render check)
+    console.log("EMAIL:", process.env.EMAIL);
+    console.log("PASS:", process.env.EMAIL_PASS ? "OK" : "MISSING");
 
     // Validation
     if (!name || !email || !message) {
@@ -43,21 +43,24 @@ app.post("/send-email", async (req, res) => {
       });
     }
 
-   const transporter = nodemailer.createTransport({
-  host: "smtp.gmail.com",
-  port: 465,
-  secure: true,
-  auth: {
-    user: process.env.EMAIL,
-    pass: process.env.EMAIL_PASS,
-  },
-  family: 4, // FORCE IPv4 (IMPORTANT)
-  connectionTimeout: 15000,
-});
+    // ✅ STABLE TRANSPORTER (FIXED)
+    const transporter = nodemailer.createTransport({
+      host: "smtp.gmail.com",
+      port: 587,
+      secure: false, // STARTTLS (more stable on cloud)
+      auth: {
+        user: process.env.EMAIL,
+        pass: process.env.EMAIL_PASS,
+      },
+      tls: {
+        rejectUnauthorized: false,
+      },
+      connectionTimeout: 20000,
+    });
 
-    // Mail Options
+    // MAIL OPTIONS
     const mailOptions = {
-      from: process.env.EMAIL,
+      from: `"Portfolio Contact" <${process.env.EMAIL}>`,
       to: process.env.EMAIL,
       replyTo: email,
       subject: "New Portfolio Contact Message",
@@ -77,7 +80,7 @@ app.post("/send-email", async (req, res) => {
       `,
     };
 
-    // Send Email
+    // SEND EMAIL
     await transporter.sendMail(mailOptions);
 
     return res.status(200).json({
@@ -90,12 +93,13 @@ app.post("/send-email", async (req, res) => {
 
     return res.status(500).json({
       success: false,
-      message: error.message || "Failed To Send Email",
+      message: "Email sending failed",
+      error: error.message,
     });
   }
 });
 
-// Server Start
+// SERVER
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
