@@ -35,7 +35,7 @@ export const Contact = () => {
 
     try {
       const res = await fetch(
-        "https://my-portfolio-backend-466p.onrender.com/send-email",
+      "https://my-portfolio-backend-466p.onrender.com/send-email",
         {
           method: "POST",
           headers: {

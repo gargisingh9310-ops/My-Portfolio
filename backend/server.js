@@ -10,7 +10,7 @@ const app = express();
 // CORS
 app.use(
   cors({
-    origin: "https://my-portfolio-9qig.onrender.com",
+    origin: "https://my-portfolio-ni6u.onrender.com",
     methods: ["GET", "POST"],
     credentials: true,
   })
