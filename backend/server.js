@@ -45,13 +45,14 @@ app.post("/send-email", async (req, res) => {
 
     // Email Transporter
     const transporter = nodemailer.createTransport({
-      service: "gmail",
-      auth: {
-        user: process.env.EMAIL,
-        pass: process.env.EMAIL_PASS,
-      },
-    });
-
+  host: "smtp.gmail.com",
+  port: 465,
+  secure: true,
+  auth: {
+    user: process.env.EMAIL,
+    pass: process.env.EMAIL_PASS,
+  },
+});
     // Mail Options
     const mailOptions = {
       from: process.env.EMAIL,
