@@ -9,16 +9,11 @@ dotenv.config();
 const app = express();
 
 // ✅ IMPORTANT: allow all Vercel + local
-app.use(
-  cors({
-    origin: [
-      "http://localhost:5173",
-      /\.vercel\.app$/   // 👈 BEST FIX (all Vercel URLs allow)
-    ],
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    credentials: true,
-  })
-);
+app.use(cors({
+  origin: [/\.vercel\.app$/, "http://localhost:5173"],
+  methods: ["GET","POST","PUT","DELETE","OPTIONS"],
+  credentials: true
+}));
 
 // IMPORTANT for preflight (CORS fix)
 app.options("*", cors());

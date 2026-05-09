@@ -14,13 +14,14 @@ export const sendContactMail = async (req, res) => {
 
     // MAIL TRANSPORTER
     const transporter = nodemailer.createTransport({
-      service: "gmail",
-
-      auth: {
-        user: process.env.GMAIL,
-        pass: process.env.GMAIL_PASSWORD,
-      },
-    });
+  host: "smtp.gmail.com",
+  port: 465,
+  secure: true,
+  auth: {
+    user: process.env.GMAIL,
+    pass: process.env.GMAIL_PASSWORD,
+  },
+});
 
     // MAIL OPTIONS
     const mailOptions = {
