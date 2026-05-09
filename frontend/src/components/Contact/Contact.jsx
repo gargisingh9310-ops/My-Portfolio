@@ -8,6 +8,9 @@ import linkIcon from "../../assets/Contact/linkedin.png";
 import mailIcon from "../../assets/Contact/mail.png";
 import gitIcon from "../../assets/Contact/github.png";
 
+const API_URL =
+  "https://my-portfolio-backend-2be6.onrender.com/api/contact";
+
 export const Contact = () => {
   const [formData, setFormData] = useState({
     name: "",
@@ -19,7 +22,7 @@ export const Contact = () => {
   const [showPopup, setShowPopup] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  // HANDLE INPUT CHANGE
+  // INPUT CHANGE
   const handleChange = (e) => {
     const { name, value } = e.target;
 
@@ -29,38 +32,32 @@ export const Contact = () => {
     }));
   };
 
-  // HANDLE FORM SUBMIT
+  // SUBMIT FORM
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     setLoading(true);
 
     try {
-      const response = await axios.post(
-        "https://my-portfolio-backend-2be6.onrender.com/api/contact",
-        formData
-      );
+      const response = await axios.post(API_URL, formData);
 
-      if (response.data.success) {
+      if (response?.data?.success) {
         setShowPopup(true);
 
-        setTimeout(() => {
-          setShowPopup(false);
-        }, 3000);
+        setTimeout(() => setShowPopup(false), 3000);
 
-        // CLEAR FORM
         setFormData({
           name: "",
           phone: "",
           email: "",
           message: "",
         });
+      } else {
+        alert("Message failed to send");
       }
-
     } catch (error) {
       console.log("ERROR:", error);
-
-      alert("Failed to send message");
+      alert("Server error. Try again later.");
     } finally {
       setLoading(false);
     }
@@ -69,14 +66,11 @@ export const Contact = () => {
   return (
     <footer className={styles.container} id="contact">
       <div className={styles.wrapper}>
-
-        {/* LEFT SIDE */}
+        {/* LEFT */}
         <div className={styles.left}>
           <h2>Contact Me</h2>
 
-          <p>
-            Let's connect and build something meaningful together.
-          </p>
+          <p>Let's connect and build something meaningful together.</p>
 
           <img
             src={profileImg}
@@ -85,10 +79,8 @@ export const Contact = () => {
           />
 
           <ul className={styles.links}>
-
             <li>
               <img src={mailIcon} alt="mail" />
-
               <a href="mailto:gargi.singh.9310@gmail.com">
                 gargi.singh.9310@gmail.com
               </a>
@@ -96,7 +88,6 @@ export const Contact = () => {
 
             <li>
               <img src={linkIcon} alt="linkedin" />
-
               <a
                 href="https://www.linkedin.com/in/gargi-undefined-130b98400"
                 target="_blank"
@@ -108,7 +99,6 @@ export const Contact = () => {
 
             <li>
               <img src={gitIcon} alt="github" />
-
               <a
                 href="https://github.com/gargisingh9310-ops"
                 target="_blank"
@@ -117,13 +107,11 @@ export const Contact = () => {
                 GitHub
               </a>
             </li>
-
           </ul>
         </div>
 
-        {/* RIGHT SIDE FORM */}
+        {/* RIGHT */}
         <form onSubmit={handleSubmit} className={styles.form}>
-
           <input
             type="text"
             name="name"
@@ -162,11 +150,9 @@ export const Contact = () => {
           <button type="submit" disabled={loading}>
             {loading ? "Sending..." : "Send Message"}
           </button>
-
         </form>
       </div>
 
-      {/* SUCCESS POPUP */}
       {showPopup && (
         <div className={styles.popup}>
           ✅ Message sent successfully!
