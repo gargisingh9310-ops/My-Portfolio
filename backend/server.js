@@ -13,7 +13,7 @@ app.use(
   cors({
     origin: [
       "http://localhost:5173",
-      "https://my-portfolio-ppqraq44b-gargisingh9310-ops-projects.vercel.app"
+      "https://my-portfolio-do59dcgrx-gargisingh9310-ops-projects.vercel.app/"
     ],
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
