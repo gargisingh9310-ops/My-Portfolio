@@ -11,8 +11,9 @@ const app = express();
 app.use(
   cors({
     origin: [
-      "https://my-portfolio-ni6u.onrender.com",
       "https://my-portfolio-9qig.onrender.com",
+      "http://localhost:5173",
+      "http://localhost:5174"
     ],
     methods: ["GET", "POST"],
   })
