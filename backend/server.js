@@ -7,36 +7,40 @@ dotenv.config();
 
 const app = express();
 
-// CORS
+// ================= CORS =================
 app.use(
   cors({
     origin: [
       "https://my-portfolio-9qig.onrender.com",
       "http://localhost:5173",
-      "http://localhost:5174"
+      "http://localhost:5174",
     ],
     methods: ["GET", "POST"],
+    credentials: true,
   })
 );
 
-// Middleware
+// ================= MIDDLEWARE =================
 app.use(express.json());
 
-// Test Route
+// ================= TEST ROUTE =================
 app.get("/", (req, res) => {
   res.send("Server Running...");
 });
 
-// CONTACT ROUTE
+// ================= CONTACT ROUTE =================
 app.post("/send-email", async (req, res) => {
   try {
     const { name, phone, email, message } = req.body;
 
-    // DEBUG LOGS (Render check)
+    // ================= DEBUG =================
     console.log("EMAIL:", process.env.EMAIL);
-    console.log("PASS:", process.env.EMAIL_PASS ? "OK" : "MISSING");
+    console.log(
+      "EMAIL_PASS:",
+      process.env.EMAIL_PASS ? "FOUND" : "MISSING"
+    );
 
-    // Validation
+    // ================= VALIDATION =================
     if (!name || !email || !message) {
       return res.status(400).json({
         success: false,
@@ -44,45 +48,70 @@ app.post("/send-email", async (req, res) => {
       });
     }
 
-    // ✅ STABLE TRANSPORTER (FIXED)
+    // ================= TRANSPORTER =================
     const transporter = nodemailer.createTransport({
-      host: "smtp.gmail.com",
-      port: 587,
-      secure: false, // STARTTLS (more stable on cloud)
+      service: "gmail",
       auth: {
         user: process.env.EMAIL,
         pass: process.env.EMAIL_PASS,
       },
-      tls: {
-        rejectUnauthorized: false,
-      },
-      connectionTimeout: 20000,
     });
 
-    // MAIL OPTIONS
+    // ================= VERIFY SMTP =================
+    await transporter.verify();
+
+    console.log("SMTP SERVER READY");
+
+    // ================= MAIL OPTIONS =================
     const mailOptions = {
       from: `"Portfolio Contact" <${process.env.EMAIL}>`,
       to: process.env.EMAIL,
       replyTo: email,
       subject: "New Portfolio Contact Message",
+
       html: `
-        <div style="font-family: Arial; padding: 20px;">
-          <h2>New Contact Message</h2>
+        <div style="font-family: Arial, sans-serif; padding: 20px;">
+          
+          <h2 style="color:#333;">
+            New Portfolio Contact Message
+          </h2>
 
-          <p><b>Name:</b> ${name}</p>
-          <p><b>Phone:</b> ${phone || "Not Provided"}</p>
-          <p><b>Email:</b> ${email}</p>
+          <hr />
 
-          <p><b>Message:</b></p>
-          <div style="padding:10px; background:#f4f4f4;">
+          <p>
+            <b>Name:</b> ${name}
+          </p>
+
+          <p>
+            <b>Phone:</b> ${phone || "Not Provided"}
+          </p>
+
+          <p>
+            <b>Email:</b> ${email}
+          </p>
+
+          <p>
+            <b>Message:</b>
+          </p>
+
+          <div 
+            style="
+              background:#f4f4f4;
+              padding:15px;
+              border-radius:8px;
+            "
+          >
             ${message}
           </div>
+
         </div>
       `,
     };
 
-    // SEND EMAIL
+    // ================= SEND MAIL =================
     await transporter.sendMail(mailOptions);
+
+    console.log("EMAIL SENT SUCCESSFULLY");
 
     return res.status(200).json({
       success: true,
@@ -100,7 +129,7 @@ app.post("/send-email", async (req, res) => {
   }
 });
 
-// SERVER
+// ================= SERVER =================
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
