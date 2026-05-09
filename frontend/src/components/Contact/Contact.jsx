@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import axios from "axios";
+
 import styles from "./Contact.module.css";
 
 import profileImg from "../../assets/Contact/myImg.png";
@@ -34,25 +36,12 @@ export const Contact = () => {
     setLoading(true);
 
     try {
-    const res = await fetch(
-  "https://my-portfolio-backend-466p.onrender.com/send-email",
-  {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(formData),
-  }
-);
+      const response = await axios.post(
+        "http://localhost:5000/api/contact",
+        formData
+      );
 
-if (!res.ok) {
-  throw new Error("Server Error");
-}
-
-const data = await res.json();
-
-      if (data.success) {
-        // SHOW SUCCESS POPUP
+      if (response.data.success) {
         setShowPopup(true);
 
         setTimeout(() => {
@@ -66,13 +55,12 @@ const data = await res.json();
           email: "",
           message: "",
         });
-      } else {
-        alert(data.message || "Failed to send message");
       }
 
     } catch (error) {
       console.log("ERROR:", error);
-      alert("Something went wrong");
+
+      alert("Failed to send message");
     } finally {
       setLoading(false);
     }
