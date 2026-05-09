@@ -8,28 +8,25 @@ dotenv.config();
 
 const app = express();
 
-// CORS middleware
+// ✅ IMPORTANT: allow all Vercel + local
 app.use(
   cors({
     origin: [
       "http://localhost:5173",
-      "https://my-portfolio-do59dcgrx-gargisingh9310-ops-projects.vercel.app/"
+      /\.vercel\.app$/   // 👈 BEST FIX (all Vercel URLs allow)
     ],
-    methods: ["GET", "POST", "PUT", "DELETE"],
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     credentials: true,
   })
 );
 
-// ⭐ IMPORTANT: preflight request handler
+// IMPORTANT for preflight (CORS fix)
 app.options("*", cors());
 
-// body parser
 app.use(express.json());
 
-// routes
 app.use("/api/contact", contactRoutes);
 
-// test route
 app.get("/", (req, res) => {
   res.send("Backend is running 🚀");
 });
