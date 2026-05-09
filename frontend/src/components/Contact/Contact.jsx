@@ -37,7 +37,7 @@ export const Contact = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/contact",
+        "https://my-portfolio-backend-2be6.onrender.com/api/contact",
         formData
       );
 

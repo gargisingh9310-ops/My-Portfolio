@@ -10,7 +10,10 @@ const app = express();
 
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: [
+      "http://localhost:5173",
+      "https://my-portfolio-4bag400p2-gargisingh9310-ops-projects.vercel.app"
+    ],
   })
 );
 

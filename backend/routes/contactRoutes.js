@@ -6,4 +6,4 @@ const router = express.Router();
 
 router.post("/", sendContactMail);
 
-export default router;
+export default router; 
