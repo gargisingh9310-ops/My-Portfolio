@@ -34,18 +34,22 @@ export const Contact = () => {
     setLoading(true);
 
     try {
-      const res = await fetch(
-      "https://my-portfolio-backend-466p.onrender.com/send-email",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(formData),
-        }
-      );
+    const res = await fetch(
+  "https://my-portfolio-backend-466p.onrender.com/send-email",
+  {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(formData),
+  }
+);
 
-      const data = await res.json();
+if (!res.ok) {
+  throw new Error("Server Error");
+}
+
+const data = await res.json();
 
       if (data.success) {
         // SHOW SUCCESS POPUP
