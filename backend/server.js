@@ -21,6 +21,7 @@ app.options("*", cors());
 app.use(express.json());
 
 app.use("/api/contact", contactRoutes);
+app.listen(PORT);
 
 app.get("/", (req, res) => {
   res.send("Backend is running 🚀");
