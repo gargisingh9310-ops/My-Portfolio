@@ -10,13 +10,11 @@ dotenv.config();
 
 const app = express();
 
-// --- MIDDLEWARES ---
-
 // CORS Configuration
 app.use(
   cors({
     origin: [
-      "https://my-portfolio-b05moy5za-gargisingh9310-ops-projects.vercel.app", // Aapka specific Vercel URL
+      "https://my-portfolio-two-tau-x50jjqey0a.vercel.app/", // Aapka specific Vercel URL
       /\.vercel\.app$/, // Saare Vercel subdomains ke liye
       "http://localhost:5173" // Local development ke liye
     ],
