@@ -12,91 +12,101 @@ export const ProjectCard = ({
     comingSoon,
   },
 }) => {
-  const [showPopup, setShowPopup] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
   const handleDemoClick = (e) => {
     if (comingSoon) {
       e.preventDefault();
-      setShowPopup(true);
+      setShowModal(true);
     }
   };
 
   return (
-    <div className={styles.card}>
-      
-      {/* IMAGE */}
-      <div className={styles.imageWrapper}>
-        <img
-          src={imageSrc}
-          alt={title}
-          className={styles.image}
-        />
+    <>
+      {/* CARD */}
+      <div className={styles.card} onClick={() => setShowModal(true)}>
 
-        {comingSoon && (
-          <span className={styles.badge}>
-            Coming Soon
-          </span>
-        )}
+        <div className={styles.imageWrapper}>
+          <img src={imageSrc} alt={title} className={styles.image} />
+
+          {comingSoon && (
+            <span className={styles.badge}>Coming Soon</span>
+          )}
+        </div>
+
+        <h3 className={styles.title}>{title}</h3>
+
+        <p className={styles.shortDesc}>
+          {description?.slice(0, 80) || "Click to view details..."}
+        </p>
+
+        <div className={styles.skillRow}>
+          {skills.slice(0, 3).map((skill, i) => (
+            <span key={i} className={styles.skill}>
+              {skill}
+            </span>
+          ))}
+        </div>
       </div>
 
-      {/* TITLE */}
-      <h3 className={styles.projectTitle}>
-        {title}
-      </h3>
-
-      {/* DESCRIPTION */}
-      <p className={styles.description}>
-        {description}
-      </p>
-
-      {/* SKILLS */}
-      <ul className={styles.skills}>
-        {skills.map((skill, index) => (
-          <li key={index} className={styles.skill}>
-            {skill}
-          </li>
-        ))}
-      </ul>
-
-      {/* LINKS */}
-      <div className={styles.links}>
-        {demo && (
-          <a
-            href={demo}
-            onClick={handleDemoClick}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.link}
+      {/* MODAL */}
+      {showModal && (
+        <div className={styles.overlay} onClick={() => setShowModal(false)}>
+          <div
+            className={styles.modal}
+            onClick={(e) => e.stopPropagation()}
           >
-            Demo
-          </a>
-        )}
+            <h2>{title}</h2>
 
-        {source && (
-          <a
-            href={source}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.linkSecondary}
-          >
-            Source
-          </a>
-        )}
-      </div>
+            <img src={imageSrc} alt={title} className={styles.modalImg} />
 
-      {/* POPUP */}
-      {showPopup && (
-        <div className={styles.popupOverlay}>
-          <div className={styles.popup}>
-            <h2>🚧 Coming Soon</h2>
-            <p>This project is under development</p>
-            <button onClick={() => setShowPopup(false)}>
-              Close
+            <p className={styles.fullDesc}>
+              {description}
+            </p>
+
+            <h4>Skills</h4>
+            <div className={styles.skillWrap}>
+              {skills.map((skill, i) => (
+                <span key={i} className={styles.skill}>
+                  {skill}
+                </span>
+              ))}
+            </div>
+
+            <div className={styles.buttons}>
+              {demo && (
+                <a
+                  href={demo}
+                  target="_blank"
+                  rel="noreferrer"
+                  className={styles.demoBtn}
+                  onClick={handleDemoClick}
+                >
+                  Live Demo
+                </a>
+              )}
+
+              {source && (
+                <a
+                  href={source}
+                  target="_blank"
+                  rel="noreferrer"
+                  className={styles.sourceBtn}
+                >
+                  Source Code
+                </a>
+              )}
+            </div>
+
+            <button
+              className={styles.closeBtn}
+              onClick={() => setShowModal(false)}
+            >
+              ✕
             </button>
           </div>
         </div>
       )}
-
-    </div>
+    </>
   );
 };
