@@ -13,7 +13,7 @@ const app = express();
 // CORS Configuration
 app.use(
   cors({
-    origin: [ 
+    origin: [ "https://my-portfolio-s4f7.onrender.com",
      "http://localhost:5173"
     ],
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
