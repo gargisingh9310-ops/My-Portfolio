@@ -3,6 +3,7 @@ import halfFried from "../assets/project/Half-Fried.png";
 import socialHub from "../assets/project/Social-Hub.webp";
 import hms from "../assets/project/hms.webp";
 import weather from "../assets/project/weather.webp";
+import SoulSync from "../assets/project/SoulSync.png"
 
 export const projects = [
   {title: "E-com",
