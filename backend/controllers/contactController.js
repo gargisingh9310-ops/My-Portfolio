@@ -1,40 +1,17 @@
-import nodemailer from "nodemailer";
+// controllers/contactController.js
+
+import twilio from "twilio";
 import dotenv from "dotenv";
 
 dotenv.config();
 
-const transporter = nodemailer.createTransport({
-  host: "smtp.gmail.com",
-  port: 465,
-  secure: true,
+// TWILIO CLIENT
+const client = twilio(
+  process.env.TWILIO_ACCOUNT_SID,
+  process.env.TWILIO_AUTH_TOKEN
+);
 
-  auth: {
-    user: process.env.GMAIL,
-    pass: process.env.GMAIL_PASSWORD,
-  },
-
-  connectionTimeout: 60000,
-  greetingTimeout: 30000,
-  socketTimeout: 60000,
-});
-
-// VERIFY CONNECTION
-transporter.verify((error, success) => {
-
-  if (error) {
-
-    console.log("Transporter connection error ❌");
-    console.error(error);
-
-  } else {
-
-    console.log("Server is ready to send emails ✅");
-
-  }
-
-});
-
-// SEND MAIL
+// CONTROLLER
 export const sendContactMail = async (req, res) => {
 
   try {
@@ -51,58 +28,67 @@ export const sendContactMail = async (req, res) => {
 
     }
 
-    const mailOptions = {
+    console.log("Incoming Form Data ✅");
+    console.log({
+      name,
+      phone,
+      email,
+      message,
+    });
 
-      from: process.env.GMAIL,
+    // SEND SMS
+    const sms = await client.messages.create({
 
-      to: process.env.GMAIL,
+      body: `
+📩 New Portfolio Message
 
-      replyTo: email,
+👤 Name: ${name}
 
-      subject: `New Portfolio Message from ${name}`,
+📞 Phone: ${phone || "Not Provided"}
 
-      html: `
-        <div style="font-family: Arial; padding: 20px; border: 1px solid #eee; border-radius: 10px;">
-          
-          <h2>📩 New Contact Form Submission</h2>
+📧 Email: ${email}
 
-          <p><strong>Name:</strong> ${name}</p>
-
-          <p><strong>Email:</strong> ${email}</p>
-
-          <p><strong>Phone:</strong> ${phone || "Not Provided"}</p>
-
-          <p><strong>Message:</strong></p>
-
-          <div style="background:#f4f4f4; padding:10px; border-radius:8px;">
-            ${message}
-          </div>
-
-        </div>
+💬 Message:
+${message}
       `,
-    };
 
-    await transporter.sendMail(mailOptions);
+      // TWILIO NUMBER
+      from: process.env.TWILIO_PHONE_NUMBER,
 
-    console.log("EMAIL SENT SUCCESSFULLY ✅");
+      // YOUR REAL NUMBER
+      to: "+919310227096",
+
+    });
+
+    console.log("SMS SENT SUCCESSFULLY ✅");
+
+    console.log("MESSAGE SID:");
+    console.log(sms.sid);
 
     return res.status(200).json({
       success: true,
-      message: "Message sent successfully!",
+      message: "SMS sent successfully!",
     });
 
   } catch (error) {
 
-    console.error("CRITICAL MAIL ERROR ❌");
+    console.error("TWILIO ERROR ❌");
 
+    console.error("FULL ERROR:");
     console.error(error);
 
-    console.error(JSON.stringify(error, null, 2));
+    console.error("ERROR MESSAGE:");
+    console.error(error.message);
+
+    console.error("ERROR CODE:");
+    console.error(error.code);
+
+    console.error("MORE INFO:");
+    console.error(error.moreInfo);
 
     return res.status(500).json({
       success: false,
-      message: error.message || "Internal server error",
-      error_code: error.code || "UNKNOWN_ERROR",
+      message: error.message || "Failed to send SMS",
     });
 
   }

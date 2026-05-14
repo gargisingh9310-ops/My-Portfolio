@@ -2,42 +2,46 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 
-// Routes import
+// ROUTES
 import contactRoutes from "./routes/contactRoutes.js";
 
-// Environment variables load karein
+// LOAD ENV
 dotenv.config();
 
 const app = express();
 
-// CORS Configuration
+// CORS CONFIG
 app.use(
   cors({
-    origin: [ "https://my-portfolio-s4f7.onrender.com",
-     "http://localhost:5173"
+    origin: [
+      "https://my-portfolio-s4f7.onrender.com",
+      "http://localhost:5173",
     ],
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+
+    methods: ["GET", "POST"],
+
     credentials: true,
   })
 );
 
-// Body Parser (JSON data accept karne ke liye)
+// BODY PARSER
 app.use(express.json());
 
-// --- ROUTES ---
-
-// Contact API route
+// ROUTES
 app.use("/api/contact", contactRoutes);
 
-// Root/Test route
+// TEST ROUTE
 app.get("/", (req, res) => {
+
   res.status(200).send("Backend is running 🚀");
+
 });
 
-// --- SERVER START ---
-
+// SERVER START
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
+
   console.log(`Server is blazing on port ${PORT}`);
+
 });
