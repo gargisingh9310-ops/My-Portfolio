@@ -3,25 +3,53 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-// 1. Updated Transporter for Render/Production
-// Host/Port ki jagah 'service' use karna better hai
+// TRANSPORTER
+import nodemailer from "nodemailer";
+import dotenv from "dotenv";
+
+dotenv.config();
+
 const transporter = nodemailer.createTransport({
-  service: "gmail",
+  host: "smtp.gmail.com",
+  port: 465,
+  secure: true,
+
   auth: {
     user: process.env.GMAIL,
     pass: process.env.GMAIL_PASSWORD,
   },
+
+  connectionTimeout: 60000,
+  greetingTimeout: 30000,
+  socketTimeout: 60000,
 });
 
-// Ye check karne ke liye ki backend startup par hi connected hai ya nahi
+// VERIFY
+transporter.verify((error, success) => {
+
+  if (error) {
+
+    console.log("Transporter connection error ❌");
+    console.error(error);
+
+  } else {
+
+    console.log("Server is ready to send emails ✅");
+
+  }
+
+});
+// CHECK CONNECTION ON SERVER START
 transporter.verify((error, success) => {
   if (error) {
-    console.log("Transporter connection error ❌:", error);
+    console.log("Transporter connection error ❌");
+    console.error(error);
   } else {
     console.log("Server is ready to send emails ✅");
   }
 });
 
+// CONTROLLER
 export const sendContactMail = async (req, res) => {
   try {
     const { name, phone, email, message } = req.body;
@@ -34,25 +62,47 @@ export const sendContactMail = async (req, res) => {
       });
     }
 
+    // EMAIL TEMPLATE
     const mailOptions = {
       from: process.env.GMAIL,
       to: process.env.GMAIL,
       replyTo: email,
       subject: `New Portfolio Message from ${name}`,
+
       html: `
-        <div style="font-family: Arial; padding: 20px; border: 1px solid #eee;">
-          <h2 style="color: #333;">New Contact Form Submission</h2>
-          <p><strong>Name:</strong> ${name}</p>
-          <p><strong>Email:</strong> ${email}</p>
-          <p><strong>Phone:</strong> ${phone || "Not Provided"}</p>
-          <p><strong>Message:</strong></p>
-          <p style="background: #f4f4f4; padding: 10px;">${message}</p>
+        <div style="font-family: Arial, sans-serif; padding: 20px; border: 1px solid #eee; border-radius: 10px;">
+          
+          <h2 style="color: #333;">📩 New Contact Form Submission</h2>
+
+          <p>
+            <strong>Name:</strong> ${name}
+          </p>
+
+          <p>
+            <strong>Email:</strong> ${email}
+          </p>
+
+          <p>
+            <strong>Phone:</strong> ${phone || "Not Provided"}
+          </p>
+
+          <p>
+            <strong>Message:</strong>
+          </p>
+
+          <div style="background: #f4f4f4; padding: 12px; border-radius: 8px;">
+            ${message}
+          </div>
+
         </div>
       `,
     };
 
     // SEND EMAIL
-    await transporter.sendMail(mailOptions);
+    const info = await transporter.sendMail(mailOptions);
+
+    console.log("EMAIL SENT SUCCESSFULLY ✅");
+    console.log("Message ID:", info.messageId);
 
     return res.status(200).json({
       success: true,
@@ -60,13 +110,19 @@ export const sendContactMail = async (req, res) => {
     });
 
   } catch (error) {
-    // Ye logs Render ke "Live Tail" mein dikhenge
-    console.error("CRITICAL MAIL ERROR:", error);
+
+    // MAIN ERROR
+    console.error("CRITICAL MAIL ERROR ❌");
+    console.error(error);
+
+    // DETAILED ERROR
+    console.error("FULL ERROR DETAILS:");
+    console.error(JSON.stringify(error, null, 2));
 
     return res.status(500).json({
       success: false,
       message: error.message || "Internal server error",
-      error_code: error.code // Ye help karega debug karne mein
+      error_code: error.code || "UNKNOWN_ERROR",
     });
   }
 };

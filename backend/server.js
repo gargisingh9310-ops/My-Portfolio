@@ -21,9 +21,6 @@ app.use(
   })
 );
 
-// Pre-flight requests handle karne ke liye
-app.options("*", cors());
-
 // Body Parser (JSON data accept karne ke liye)
 app.use(express.json());
 
