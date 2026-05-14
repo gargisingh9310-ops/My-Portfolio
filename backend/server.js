@@ -13,10 +13,8 @@ const app = express();
 // CORS Configuration
 app.use(
   cors({
-    origin: [
-      "https://my-portfolio-two-tau-x50jjqey0a.vercel.app/", // Aapka specific Vercel URL
-      /\.vercel\.app$/, // Saare Vercel subdomains ke liye
-      "http://localhost:5173" // Local development ke liye
+    origin: [ 
+     "http://localhost:5173"
     ],
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     credentials: true,
