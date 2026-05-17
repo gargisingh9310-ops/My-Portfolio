@@ -36,9 +36,8 @@ skills: [
   "MongoDB",
   "REST API"
 ],
-demo: "http://www.example.com",
-source: "https://github.com/gargisingh9310-ops/Half-Fried",
-comingSoon: true
+demo: "https://half-fried-one.vercel.app/",
+source: "https://github.com/gargisingh9310-ops/Half-Fried"
   },
   {title: "SoulSync",
 imageSrc: SoulSync,
