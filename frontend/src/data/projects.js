@@ -68,7 +68,7 @@ skills: [
   "Cloudinary",
   "REST API"
 ],
-demo: "https://socialhub-backend-ug9j.onrender.com",
+demo: "social-hub-chi-eight.vercel.app",
 source: "https://github.com/gargisingh9310-ops/Socialhub"
   },
   {
